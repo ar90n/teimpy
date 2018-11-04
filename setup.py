@@ -14,12 +14,12 @@ def packages_from_pipfile(section):
 
 
 setup(
-    name='tipy',
+    name='teimpy',
     version='0.0.1',
     description='Python libray for displaying images on terminal',
     author='Masahiro Wada',
     author_email='argon.argon.argon@gmail.com',
-    url='https://github.com/ar90n/tipy',
+    url='https://github.com/ar90n/teimpy',
     install_requires=packages_from_pipfile('packages'),
     extras_require={
         "develop": packages_from_pipfile('dev-packages'),
