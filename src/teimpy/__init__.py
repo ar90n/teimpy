@@ -59,7 +59,7 @@ def _get_shape_property(shape=None):
     return result
 
 
-def _compress_image(buffer, format):
+def _compress_image(buffer, compression='JPEG'):
     """
     Compress array to specified format.
     >>> _compress_image(np.array([[0]]), 'JPEG')
@@ -73,7 +73,7 @@ NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APn+v//Z'
     buffer = np.uint8(buffer)
 
     bio = BytesIO()
-    Image.fromarray(buffer).save(bio,format)
+    Image.fromarray(buffer).save(bio, compression)
     return b64encode(bio.getvalue()).decode('utf-8')
 
 def _is_in_tmux():
@@ -92,7 +92,7 @@ def _get_st():
     return '\a'
 
 
-def _create_message(data, properties='JPEG'):
+def _create_message(data, properties):
     osc = _get_osc()
     properties = ''.join([';{}={}'.format(k, v) for k, v in properties.items()])
     st = _get_st()
@@ -109,10 +109,4 @@ def draw(buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
         'preserveAspectRatio': '1' if preserve_aspect_ratio else '0',
         'inline': '1',
     }
-
     return _create_message(data, properties)
-
-
-buffer = np.arange(160 * 32).reshape((160, 32))
-sh = shape_by_pixels(800, 800)
-print(draw(buffer, sh, False))
