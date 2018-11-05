@@ -6,24 +6,47 @@ from configparser import ConfigParser
 from setuptools import setup, find_packages
 
 
+def get_path(file):
+    return Path(__file__).parent / file
+
+
 def packages_from_pipfile(section):
-    pipfile_path = str((Path(__file__).parent / 'Pipfile').absolute())
+    pipfile_path = str(get_path('Pipfile'))
     parser = ConfigParser()
     parser.read(pipfile_path)
-    return [f'{k}=={v}' for k, v in parser[section].items()]
+    print(['{}=={}'.format(k, v) for k, v in parser[section].items()])
+    return ['{}=={}'.format(k, v) for k, v in parser[section].items()]
 
+
+with get_path('README.md').open() as f:
+    readme = f.read()
 
 setup(
     name='teimpy',
     version='0.0.1',
+    license='MIT',
     description='Python libray for displaying images on terminal',
+    long_description=readme,
+
     author='Masahiro Wada',
     author_email='argon.argon.argon@gmail.com',
     url='https://github.com/ar90n/teimpy',
+
+    packages=find_packages(where='src'),
+    package_dir={'': 'src'},
+
     install_requires=packages_from_pipfile('packages'),
     extras_require={
-        "develop": packages_from_pipfile('dev-packages'),
+        'develop': packages_from_pipfile('dev-packages'),
     },
-    packages=find_packages('src'),
-    package_dir={'':'src'}
+    classifiers=[
+        'Development Status :: 1 - Planning',
+        'Programming Language :: Python',
+        'Topic :: Software Development',
+        'Intended Audience :: Developers',
+        'Natural Language :: English',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+    ],
 )
