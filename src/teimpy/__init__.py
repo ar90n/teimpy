@@ -1,3 +1,5 @@
+import os
+from re import match
 from io import BytesIO
 from base64 import b64encode
 from collections import namedtuple
@@ -74,22 +76,27 @@ NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APn+v//Z'
     Image.fromarray(buffer).save(bio,format)
     return b64encode(bio.getvalue()).decode('utf-8')
 
+def _is_in_tmux():
+    return match('(screen|tmux)-', os.environ.get('TERM'))
+
 
 def _get_osc():
+    if _is_in_tmux():
+        return '\x1bPtmux;\x1b\x1b]'
     return '\x1b]'
 
 
-def _create_message(data, properties):
-    result = []
-    result.append(_get_osc())
-    result.append('1337')
-    result.append(';File=')
-    for k, v in properties.items():
-        result.append(';{}={}'.format(k, v))
-    result.append(':')
-    result.append(data)
-    result.append('\a')
-    return ''.join(result)
+def _get_st():
+    if _is_in_tmux():
+        return '\a\x1b\\'
+    return '\a'
+
+
+def _create_message(data, properties='JPEG'):
+    osc = _get_osc()
+    properties = ''.join([';{}={}'.format(k, v) for k, v in properties.items()])
+    st = _get_st()
+    return '{}1337;File={}:{}{}'.format(osc, properties, data, st)
 
 
 def draw(buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
