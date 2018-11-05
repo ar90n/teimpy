@@ -110,10 +110,9 @@ def draw(buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
         'inline': '1',
     }
 
-    message = _create_message(data, properties)
-    print(message)
+    return _create_message(data, properties)
 
 
 buffer = np.arange(160 * 32).reshape((160, 32))
 sh = shape_by_pixels(800, 800)
-draw(buffer, sh, False)
+print(draw(buffer, sh, False))
