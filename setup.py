@@ -14,8 +14,12 @@ def packages_from_pipfile(section):
     pipfile_path = str(get_path('Pipfile'))
     parser = ConfigParser()
     parser.read(pipfile_path)
-    print(['{}=={}'.format(k, v) for k, v in parser[section].items()])
-    return ['{}=={}'.format(k, v) for k, v in parser[section].items()]
+
+    result = []
+    for k, v in parser[section].items():
+        pkg = k if v == '"*"' else '{}=={}'.format(k, v)
+        result.append(pkg)
+    return result
 
 
 with get_path('README.md').open() as f:
