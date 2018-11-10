@@ -27,6 +27,6 @@ def commpression_data(request):
 
 def test_draw_item2_inline_image(commpression_data):
     
-    actual = teimpy.draw(commpression_data['buffer'], compression=commpression_data['compression'])
+    actual = teimpy.draw_with_iterm2_inline_image(commpression_data['buffer'], compression=commpression_data['compression'])
 
     assert actual == commpression_data['expected']
