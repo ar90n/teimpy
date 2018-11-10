@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 numpy = "*"
+pillow = "*"
 
 [dev-packages]
 pytest = "*"
 setuptools = "*"
 autopep8 = "*"
-pillow = "*"
