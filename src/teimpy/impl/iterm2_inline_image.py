@@ -7,29 +7,31 @@ from collections import OrderedDict
 from PIL import Image
 import numpy as np
 
+from ..shape import ShapeByCells, ShapeByPixels, ShapeByRatio
+
 
 def _get_shape_property(shape=None):
     """
     Get item2 inline image protocol shape property.
     Default shape property is 'auto' in 'width' and 'height'.
     >>> _get_shape_property()
-    {'width': 'auto', 'height': 'auto'}
+    (('width', 'auto'), ('height', 'auto'))
 
     if None is given, it is converted to 'auto'.
     >>> _get_shape_property((100, None))
-    {'width': 'auto', 'height': '100'}
+    (('width', 'auto'), ('height', '100'))
 
     Given shape by cells.
     >>> _get_shape_property(ShapeByCells(30, 50))
-    {'width': '50', 'height': '30'}
+    (('width', '50'), ('height', '30'))
 
     Given shape by pixels.
     >>> _get_shape_property(ShapeByPixels(300, 500))
-    {'width': '500px', 'height': '300px'}
+    (('width', '500px'), ('height', '300px'))
 
     Given shape by percent.
     >>> _get_shape_property(ShapeByRatio(80, 90))
-    {'width': '90%', 'height': '80%'}
+    (('width', '90%'), ('height', '80%'))
     """
 
     if shape is None:
@@ -52,7 +54,7 @@ def _compress_image(buffer, compression='JPEG'):
     """
     Compress array to specified format.
     >>> _compress_image(np.array([[0]]), 'JPEG')
-    b'/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofH\
+    '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAgGBgcGBQgHBwcJCQgKDBQNDAsLDBkSEw8UHRofH\
 h0aHBwgJC4nICIsIxwcKDcpLDAxNDQ0Hyc5PTgyPC4zNDL/wAALCAABAAEBAREA/8QAHwAAAQUBAQEB\
 AQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJ\
 xFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZW\
@@ -89,7 +91,7 @@ def _create_message(data, properties):
     return '{}1337;File={}:{}{}'.format(osc, properties, data, st)
 
 
-def draw(buffer, shape=None, preserve_aspect_ratio=False, compression='JPEG'):
+def draw(buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
     data = _compress_image(buffer, compression)
 
     shape_property = _get_shape_property(shape)
