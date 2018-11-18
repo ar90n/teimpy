@@ -49,9 +49,9 @@ class BrailleDrawer(DrawerBase):
         if len(buffer.shape) != 3 and buffer.shape[-1] == 1:
             buffer = buffer.reshape(buffer.shape[0], buffer.shape[1])
         if len(buffer.shape) != 2:
-            raise ValueError('draw_with_braille only supports 1 channel image.')
+            raise ValueError('BrailleDrawer only supports 1 channel image.')
         if buffer.dtype not in [np.bool, np.uint8, np.int32, np.float32]:
-            raise ValueError('draw_with_braille only supports np.bool, np.uin8, np.int32 and np.float32.')
+            raise ValueError('BrailleDrawer only supports np.bool, np.uin8, np.int32 and np.float32.')
         if shape is None:
             shape = ShapeByPixels(buffer.shape[0], buffer.shape[1])
 

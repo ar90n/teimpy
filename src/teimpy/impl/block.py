@@ -47,7 +47,7 @@ class BlockDrawer(DrawerBase):
 
     def draw(self, buffer, shape=None, preserve_aspect_ratio=True, shrink_to_terminal=True):
         if buffer.dtype not in [np.uint8]:
-            raise ValueError('draw_with_braille only supports np.uin8.')
+            raise ValueError('BlockDrawer only supports np.uin8.')
         if shape is None:
             shape = ShapeByPixels(buffer.shape[0], buffer.shape[1])
         if len(buffer.shape) == 2:
