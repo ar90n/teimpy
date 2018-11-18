@@ -31,16 +31,13 @@ print(get_drawer(Mode.ITERM2_INLINE_IMAGE).draw(buffer))
 
 ## Feature
 
+* Resize images to fit terminal size.
 * Drawing with iterm2 inline image.
-![Drawing with iterm2 inline image](https://github.com/ar90n/teimpy/raw/docs/inline_image.jpg)
-
+![Drawing with iterm2 inline image](https://github.com/ar90n/teimpy/raw/docs/inline_image.png)
 * Drawing with Braille fonts.
 ![Drawing with Braille ofnts](https://github.com/ar90n/teimpy/raw/docs/braille.png)
-
 * Drawing with half block fonts.
-![Drawing with half block fonts](https://github.com/ar90n/teimpy/raw/docs/half_block.jpg)
-
-* Resize images to fit terminal size.
+![Drawing with half block fonts](https://github.com/ar90n/teimpy/raw/docs/half_block.png)
 
 
 ## License
