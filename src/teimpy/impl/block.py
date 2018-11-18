@@ -1,4 +1,5 @@
 import numpy as np
+from itertools import zip_longest, repeat
 
 from .base import DrawerBase
 from ..shape import ShapeByPixels
@@ -11,6 +12,10 @@ from .util import \
 def _resize(buffer, resized_shape):
     """
     Resize to displaing image size
+    >>> buffer = np.arange(9).reshape(3,3).astype(np.uint8)
+    >>> resized = _resize(buffer, (9, 9))
+    >>> resized.shape
+    (9, 9)
     """
     img = convert_to_pil_image(buffer)
     img = img.resize((resized_shape[1], resized_shape[0]))
@@ -21,16 +26,19 @@ def _pack_2x1_by_half_block_code(buffer):
     """
     Pack 2x1 3 channel pixels into one half top block with bgcolor.
     >>> _pack_2x1_by_half_block_code(np.array([[[0, 255, 0]], [[255, 0, 0]]]))
-    '\\x1b[48;2;0;255;0m\\x1b[38;2;255;0;0m▄'
+    '\\x1b[48;2;255;0;0m\\x1b[38;2;0;255;0m▀'
     """
-    row_cells = buffer.shape[0] // 2
-    col_cells = buffer.shape[1] // 1
-    buffer = buffer.reshape(row_cells, -1, col_cells, 1, 3)\
-        .transpose(0, 2, 1, 3, 4).reshape(row_cells, col_cells, 6)
+    def _pack_line(ul, ll):
+        def _pack(u, l):
+            res = []
+            if l is not None:
+                res.append('\x1b[48;2;{};{};{}m'.format(*l))
+            res.append('\x1b[38;2;{};{};{}m▀'.format(*u))
+            return ''.join(res)
+        return ''.join([_pack(u, l) for u, l in zip(ul, ll)])
 
-    def _pack(v):
-        return '\x1b[48;2;{};{};{}m\x1b[38;2;{};{};{}m\u2584'.format(*v)
-    res = [''.join([_pack(v) for v in row]) for row in buffer]
+    resources = zip_longest(buffer[::2], buffer[1::2], fillvalue=repeat(None))
+    res = [_pack_line(upper, lower) for upper, lower in resources]
     return '\x1b[0m\n'.join(res)
 
 
@@ -47,5 +55,4 @@ class BlockDrawer(DrawerBase):
 
         resized_shape = get_resized_shape(buffer, shape, self.CELL_SHAPE, preserve_aspect_ratio, shrink_to_terminal)
         buffer = _resize(buffer, resized_shape)
-        buffer = pad_to_multiple_of_shape(buffer, self.CELL_SHAPE)
         return _pack_2x1_by_half_block_code(buffer)

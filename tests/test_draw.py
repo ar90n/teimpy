@@ -16,7 +16,8 @@ RkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW\
     (Mode.ITERM2_INLINE_IMAGE, {'compression': 'PNG'}, '\x1bPtmux;\x1b\x1b]1337;File=;width=auto;height=auto;size=92;prese\
 rveAspectRatio=1;inline=1:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQ\
 VR4nGNgAAAAAgABSK+kcQAAAABJRU5ErkJggg==\x07\x1b\\'),
-    (Mode.BRAILLE, {}, '\u2800')
+    (Mode.BRAILLE, {}, '\u2800'),
+    (Mode.HALF_BLOCK, {}, '\x1b[38;2;0;0;0m▀')
 ])
 def setup(request):
     return {

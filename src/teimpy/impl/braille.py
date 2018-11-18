@@ -12,6 +12,12 @@ from .util import \
 def _resize_and_convert_to_binary(buffer, resized_shape):
     """
     Resize to displaing image size and convert to binary
+    >>> buffer = np.arange(9).reshape(3,3).astype(np.uint8)
+    >>> resized = _resize_and_convert_to_binary(buffer, (9, 9))
+    >>> resized.shape
+    (9, 9)
+    >>> resized.dtype
+    dtype('bool')
     """
 
     img = convert_to_pil_image(buffer)
