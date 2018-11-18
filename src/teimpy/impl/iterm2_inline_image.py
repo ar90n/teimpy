@@ -7,6 +7,7 @@ from collections import OrderedDict
 from PIL import Image
 import numpy as np
 
+from .base import DrawerBase
 from ..shape import ShapeByCells, ShapeByPixels, ShapeByRatio
 
 
@@ -91,14 +92,16 @@ def _create_message(data, properties):
     return '{}1337;File={}:{}{}'.format(osc, properties, data, st)
 
 
-def draw(buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
-    data = _compress_image(buffer, compression)
+class Iterm2InlineImageDrawer(DrawerBase):
 
-    shape_property = _get_shape_property(shape)
-    properties = OrderedDict([
-        *shape_property,
-        ('size', str(len(data))),
-        ('preserveAspectRatio', '1' if preserve_aspect_ratio else '0'),
-        ('inline', '1'),
-    ])
-    return _create_message(data, properties)
+    def draw(self, buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
+        data = _compress_image(buffer, compression)
+
+        shape_property = _get_shape_property(shape)
+        properties = OrderedDict([
+            *shape_property,
+            ('size', str(len(data))),
+            ('preserveAspectRatio', '1' if preserve_aspect_ratio else '0'),
+            ('inline', '1'),
+        ])
+        return _create_message(data, properties)
