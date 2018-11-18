@@ -4,7 +4,7 @@ Python library for displaying image on terminal.
 ## Installation
 
 ```bash
-$ pip
+$ pip install teimpy
 ```
 
 ## Example
