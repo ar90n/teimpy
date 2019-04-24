@@ -6,4 +6,9 @@ def test_package_version():
     import teimpy
     import pkg_resources
 
-    assert teimpy.__version__ == pkg_resources.get_distribution('teimpy').version
+    expeect = 'develop'
+    try:
+        expeect = pkg_resources.get_distribution('teimpy').version
+    except:
+        pass
+    assert teimpy.__version__ == expeect

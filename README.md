@@ -1,4 +1,8 @@
 # teimpy
+[![PyPI version](https://badge.fury.io/py/teimpy.svg)](https://badge.fury.io/py/teimpy)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/amplify-education/serverless-domain-manager/master/LICENSE)
+[![Build Status](https://travis-ci.org/ar90n/teimpy.svg?branch=master)](https://travis-ci.org/ar90n/teimpy)
+
 Python library for displaying image on terminal.
 
 ## Installation
