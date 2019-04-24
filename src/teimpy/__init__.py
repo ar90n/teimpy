@@ -4,3 +4,7 @@ from .shape import ShapeByCells, ShapeByPixels, ShapeByRatio  # noqa
 from .drawer import Mode, get_drawer  # noqa
 
 __version__ = pkg_resources.get_distribution('teimpy').version
+try:
+    __version__ = pkg_resources.get_distribution('teimpy').version
+except pkg_resources.DistributionNotFound:
+    __version__ = "develop"
