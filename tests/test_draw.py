@@ -17,7 +17,8 @@ RkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW\
 rveAspectRatio=1;inline=1:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAAAAAA6fptVAAAACklEQ\
 VR4nGNgAAAAAgABSK+kcQAAAABJRU5ErkJggg==\x07\x1b\\'),
     (Mode.BRAILLE, {}, '\u2800'),
-    (Mode.HALF_BLOCK, {}, '\x1b[38;2;0;0;0m▀')
+    (Mode.HALF_BLOCK, {}, '\x1b[38;2;0;0;0m▀'),
+    (Mode.SIXEL, {}, '\x1bP7;1;75q"1;1;1;1$\x1b\\')
 ])
 def setup(request):
     return {
