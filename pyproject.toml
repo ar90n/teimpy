@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "teimpy"
+version = "0.0.2"
+description = "Python libray for displaying images on terminal"
+authors = ["Masahiro Wada <argon.argon.argon@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/ar90n/teimpy"
+keywords = ["sixel", "terminal", "graphics"]
+
+[tool.poetry.dependencies]
+python = "^3.6"
+numpy = "^1.16.0"
+pillow = "^6.0.0"
+pysixel = "^0.1.11"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.3.4"
+python-language-server = "^0.31.1"
+pyls-black = "^0.4.4"
+pyls-mypy = "^0.1.8"
+pytest-black = "^0.3.7"
+pytest-mypy = "^0.4.2"
+pre-commit = "^1.20"
+bandit = "^1.6.2"
+pytest-cov = "^2.8.1"
+pppiv = "^0.1.1"
+wemake-python-styleguide = "^0.13.4"
+pycallgraph = "^1.0.1"
+radon = "^4.1.0"
+pytest-xdist = "^1.31.0"
+
+[build-system]
+requires = ["poetry>=0.12"]
+build-backend = "poetry.masonry.api"
