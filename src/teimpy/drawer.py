@@ -7,10 +7,10 @@ from .impl.sixel import SixelDrawer
 
 
 class Mode(Enum):
-    BRAILLE = 'braille'
-    ITERM2_INLINE_IMAGE = 'iterm2_inline_image'
-    HALF_BLOCK = 'half_block'
-    SIXEL = 'sixel'
+    BRAILLE = "braille"
+    ITERM2_INLINE_IMAGE = "iterm2_inline_image"
+    HALF_BLOCK = "half_block"
+    SIXEL = "sixel"
 
     def __str__(self):
         return self.value
@@ -37,4 +37,4 @@ def get_drawer(mode=Mode.BRAILLE):
     elif mode == Mode.SIXEL:
         return SixelDrawer()
     else:
-        raise ValueError('Given not supported mode.')
+        raise ValueError("Given not supported mode.")

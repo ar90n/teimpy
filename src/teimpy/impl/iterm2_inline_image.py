@@ -38,20 +38,20 @@ def _get_shape_property(shape=None):
     if shape is None:
         shape = (None, None)
 
-    unit = ''
+    unit = ""
     if isinstance(shape, ShapeByCells):
-        unit = ''
+        unit = ""
     elif isinstance(shape, ShapeByPixels):
-        unit = 'px'
+        unit = "px"
     elif isinstance(shape, ShapeByRatio):
-        unit = '%'
+        unit = "%"
 
-    width = 'auto' if shape[1] is None else '{}{}'.format(shape[1], unit)
-    height = 'auto' if shape[0] is None else '{}{}'.format(shape[0], unit)
-    return ('width', width), ('height', height)
+    width = "auto" if shape[1] is None else "{}{}".format(shape[1], unit)
+    height = "auto" if shape[0] is None else "{}{}".format(shape[0], unit)
+    return ("width", width), ("height", height)
 
 
-def _compress_image(buffer, compression='JPEG'):
+def _compress_image(buffer, compression="JPEG"):
     """
     Compress array to specified format.
     >>> _compress_image(np.array([[0]]), 'JPEG')
@@ -66,42 +66,43 @@ NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/9oACAEBAAA/APn+v//Z'
 
     bio = BytesIO()
     Image.fromarray(buffer).save(bio, compression)
-    return b64encode(bio.getvalue()).decode('utf-8')
+    return b64encode(bio.getvalue()).decode("utf-8")
 
 
 def _is_in_tmux():
-    return match('(screen|tmux)-', os.environ.get('TERM'))
+    return match("(screen|tmux)-", os.environ.get("TERM"))
 
 
 def _get_osc():
     if _is_in_tmux():
-        return '\x1bPtmux;\x1b\x1b]'
-    return '\x1b]'
+        return "\x1bPtmux;\x1b\x1b]"
+    return "\x1b]"
 
 
 def _get_st():
     if _is_in_tmux():
-        return '\a\x1b\\'
-    return '\a'
+        return "\a\x1b\\"
+    return "\a"
 
 
 def _create_message(data, properties):
     osc = _get_osc()
-    properties = ''.join([';{}={}'.format(k, v) for k, v in properties.items()])
+    properties = "".join([";{}={}".format(k, v) for k, v in properties.items()])
     st = _get_st()
-    return '{}1337;File={}:{}{}'.format(osc, properties, data, st)
+    return "{}1337;File={}:{}{}".format(osc, properties, data, st)
 
 
 class Iterm2InlineImageDrawer(DrawerBase):
-
-    def draw(self, buffer, shape=None, preserve_aspect_ratio=True, compression='JPEG'):
+    def draw(self, buffer, shape=None, preserve_aspect_ratio=True, compression="JPEG"):
         data = _compress_image(buffer, compression)
 
         shape_property = _get_shape_property(shape)
-        properties = OrderedDict([
-            *shape_property,
-            ('size', str(len(data))),
-            ('preserveAspectRatio', '1' if preserve_aspect_ratio else '0'),
-            ('inline', '1'),
-        ])
+        properties = OrderedDict(
+            [
+                *shape_property,
+                ("size", str(len(data))),
+                ("preserveAspectRatio", "1" if preserve_aspect_ratio else "0"),
+                ("inline", "1"),
+            ]
+        )
         return _create_message(data, properties)

@@ -6,9 +6,9 @@ from PIL import Image
 
 
 def main():
-    parser = argparse.ArgumentParser(description='imgcat clone')
-    parser.add_argument('--mode', type=Mode, default=Mode.BRAILLE, choices=list(Mode))
-    parser.add_argument('src', type=str)
+    parser = argparse.ArgumentParser(description="imgcat clone")
+    parser.add_argument("--mode", type=Mode, default=Mode.BRAILLE, choices=list(Mode))
+    parser.add_argument("src", type=str)
     args = parser.parse_args()
 
     image = Image.open(args.src)
@@ -17,5 +17,5 @@ def main():
     print(result)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
