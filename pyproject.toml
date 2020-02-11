@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "teimpy"
-version = "0.1.0"
+version = "0.1.1"
 description = "Python libray for displaying images on terminal"
 authors = ["Masahiro Wada <argon.argon.argon@gmail.com>"]
 license = "MIT"
