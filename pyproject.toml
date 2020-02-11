@@ -7,12 +7,12 @@ license = "MIT"
 readme = "README.md"
 repository = "https://github.com/ar90n/teimpy"
 keywords = ["sixel", "terminal", "graphics"]
+build = "build.py"
 
 [tool.poetry.dependencies]
 python = "^3.6"
 numpy = "^1.16.0"
 pillow = "^6.0.0"
-pysixel = "^0.1.11"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.3.4"
