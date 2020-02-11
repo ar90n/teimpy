@@ -7,7 +7,7 @@ LIBSIXEL_DIR = "sixel-1.8.6"
 
 def build(setup_kwargs):
     url = f"https://github.com/saitoha/libsixel/releases/download/v1.8.6/{ARCHIVE_FILE}"
-    urllib.request.urlretrieve(url, f"/tmp/{ARCHIVE_FILE}")
+    urllib.request.urlretrieve(url, f"./{ARCHIVE_FILE}")
 
     commands = f"""tar -zxvf {ARCHIVE_FILE} && \
 cd {LIBSIXEL_DIR} && \
