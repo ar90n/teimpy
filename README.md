@@ -1,7 +1,8 @@
 # teimpy
 Python library for displaying image on terminal.
 
-[![Actions Status](https://github.com/ar90n/teimpy/workflows/Python%20package/badge.svg)](https://github.com/ar90n/teimpy/actions)
+
+[![Actions Status](https://img.shields.io/github/actions/workflow/status/ar90n/teimpy/workflow.yml)](https://github.com/ar90n/teimpy/actions/workflows/workflow.yml)
 [![PyPI version](https://badge.fury.io/py/teimpy.svg)](https://badge.fury.io/py/teimpy)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/amplify-education/serverless-domain-manager/master/LICENSE)
 
